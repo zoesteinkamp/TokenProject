@@ -138,18 +138,26 @@ class App extends Component {
     render() {
 
       const style = this.state.hideaccount ? {display:'none'}: {}
+      const stylebutton = {
+        backgroundColor: '#D3172D',
+        color: '#FBFEFB',
+        borderColor: '#000000',
+      }
+      const inputstyle = {
+        borderColor:'#000000'
+      }
 
        return (
         <Container className="App">
-         <Navbar bg="dark" variant="dark">
+         <Navbar className="headerstyling">
            <Navbar.Brand >Token Search for Augur</Navbar.Brand>
         </Navbar>
-        <Tabs defaultActiveKey="single" id="uncontrolled-tab-example">
+        <Tabs defaultActiveKey="single" >
             <Tab eventKey="single" title="Single Search">
             <Form>
               <Row>
                 <Col>
-                <Form.Control value={this.state.option} name="option" onChange={this.handleInputChange} as="select">
+                <Form.Control value={this.state.option}  style={inputstyle} name="option" onChange={this.handleInputChange} as="select">
                   <option>Average</option>
                   <option>Median</option>
                   <option>Richest</option>
@@ -158,22 +166,22 @@ class App extends Component {
                 </Form.Control>
                 </Col>
                 <Col>
-                <FormControl type="text" name="token" placeholder="Token" value={this.state.token} onChange={this.handleInputChange} className=" mr-sm-2" />
+                <FormControl type="text" name="token" style={inputstyle} placeholder="Token" value={this.state.token} onChange={this.handleInputChange} className=" mr-sm-2" />
                 </Col>
                 <Col style={style}>
-                  <FormControl type="text" name="account" placeholder="Account" value={this.state.account} onChange={this.handleInputChange} className=" mr-sm-2" />
+                  <FormControl type="text" name="account" style={inputstyle} placeholder="Account" value={this.state.account} onChange={this.handleInputChange} className=" mr-sm-2" />
                 </Col>
                 <Col>
-                <Button type="submit" onClick={(e) => this.singleSearch(e)}>Single Search</Button>
+                <Button type="submit" style={stylebutton} onClick={(e) => this.singleSearch(e)}>Single Search</Button>
                 </Col>
               </Row>
             </Form>
             <Row>
               <Col style={{padding: '25px 25px 25px 25px' }}>
-              <Card style={{ width: '30rem'}}>
+              <Card className="cardstyle" >
                 <Card.Body>
                   <Card.Title>Result</Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted">{this.state.data}</Card.Subtitle>
+                  <Card.Subtitle className="resultstyle">{this.state.data}</Card.Subtitle>
                 </Card.Body>
               </Card>
               </Col>
@@ -183,38 +191,38 @@ class App extends Component {
             <Form>
               <Row>
                 <Col>
-                  <FormControl type="text" placeholder="Token" name="token" value={this.state.token} onChange={this.handleInputChange} className=" mr-sm-2" />
+                  <FormControl type="text" placeholder="Token" style={inputstyle} name="token" value={this.state.token} onChange={this.handleInputChange} className=" mr-sm-2" />
                 </Col>
                 <Col>
-                  <Button type="submit" onClick={(e) => this.bulkSearch(e)}> Bulk Search</Button>
+                  <Button type="submit" style={stylebutton} onClick={(e) => this.bulkSearch(e)}> Bulk Search</Button>
                 </Col>
               </Row>
             </Form>
             <Row>
               <Col style={{padding: '25px 25px 25px 25px' }}>
               <CardDeck>
-              <Card style={{ width: '18rem'}}>
+              <Card className="cardstyle">
                 <Card.Body>
                   <Card.Title>Result for Average</Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted">{this.state.average}</Card.Subtitle>
+                  <Card.Subtitle className="resultstyle">{this.state.average}</Card.Subtitle>
                 </Card.Body>
               </Card>
-              <Card style={{ width: '18rem'}}>
+              <Card className="cardstyle">
                 <Card.Body>
                   <Card.Title>Result for Most Active</Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted">{this.state.active}</Card.Subtitle>
+                  <Card.Subtitle className="resultstyle">{this.state.active}</Card.Subtitle>
                 </Card.Body>
               </Card>
-              <Card style={{ width: '18rem'}}>
+              <Card className="cardstyle">
                 <Card.Body>
                   <Card.Title>Result for Median</Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted">{this.state.median}</Card.Subtitle>
+                  <Card.Subtitle className="resultstyle">{this.state.median}</Card.Subtitle>
                 </Card.Body>
               </Card>
-              <Card style={{ width: '18rem'}}>
+              <Card className="cardstyle">
                 <Card.Body>
                   <Card.Title>Result for Richest </Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted">{this.state.richest}</Card.Subtitle>
+                  <Card.Subtitle className="resultstyle">{this.state.richest}</Card.Subtitle>
                 </Card.Body>
               </Card>
               </CardDeck>
