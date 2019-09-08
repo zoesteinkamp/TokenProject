@@ -21,7 +21,11 @@ class App extends Component {
         token: '',
         account: '',
         option: 'Average',
-        hideaccount: true
+        hideaccount: true,
+        average: null,
+        median: null,
+        richest: null,
+        active: null
       };
 
       this.handleInputChange = this.handleInputChange.bind(this);
@@ -32,8 +36,6 @@ class App extends Component {
 
     handleInputChange(event) {
       const target = event.target;
-      console.log(event.target)
-      console.log(target.name)
       const value = target.value;
       const name = target.name;
 
@@ -44,7 +46,6 @@ class App extends Component {
       // We have to wait for the option to be set with the new value
       setTimeout(() => {
         if(this.state.option === "Account Balance" ){
-          console.log("passed")
           this.setState({
             hideaccount: false
           });
@@ -89,6 +90,26 @@ class App extends Component {
         }
       }
 
+    }
+
+    bulkSearch(e){
+      e.preventDefault();
+      if(this.state.token === ''){
+        alert("Please input a token")
+      }else{
+          this.callTokenOnlyRoutes('/' + this.state.token +'/stats/mostActive')
+              .then(res => this.setState({ active: res}))
+              .catch(err => console.log(err));
+          this.callTokenOnlyRoutes('/' + this.state.token +'/stats/average')
+              .then(res => this.setState({ average: res}))
+              .catch(err => console.log(err));
+          this.callTokenOnlyRoutes('/' + this.state.token +'/stats/median')
+              .then(res => this.setState({ median: res}))
+              .catch(err => console.log(err));
+          this.callTokenOnlyRoutes('/' + this.state.token +'/stats/richest')
+              .then(res => this.setState({ richest: res}))
+              .catch(err => console.log(err));
+      }
     }
 
     callCalculateBalance = async (token, account) => {
@@ -158,14 +179,14 @@ class App extends Component {
               </Col>
             </Row>
             </Tab>
-            <Tab eventKey="profile" title="Bulk Search" disabled>
+            <Tab eventKey="profile" title="Bulk Search">
             <Form>
               <Row>
                 <Col>
                   <FormControl type="text" placeholder="Token" name="token" value={this.state.token} onChange={this.handleInputChange} className=" mr-sm-2" />
                 </Col>
                 <Col>
-                  <Button type="submit"> Bulk Search</Button>
+                  <Button type="submit" onClick={(e) => this.bulkSearch(e)}> Bulk Search</Button>
                 </Col>
               </Row>
             </Form>
@@ -174,8 +195,26 @@ class App extends Component {
               <CardDeck>
               <Card style={{ width: '18rem'}}>
                 <Card.Body>
-                  <Card.Title>Result for </Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
+                  <Card.Title>Result for Average</Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted">{this.state.average}</Card.Subtitle>
+                </Card.Body>
+              </Card>
+              <Card style={{ width: '18rem'}}>
+                <Card.Body>
+                  <Card.Title>Result for Most Active</Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted">{this.state.active}</Card.Subtitle>
+                </Card.Body>
+              </Card>
+              <Card style={{ width: '18rem'}}>
+                <Card.Body>
+                  <Card.Title>Result for Median</Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted">{this.state.median}</Card.Subtitle>
+                </Card.Body>
+              </Card>
+              <Card style={{ width: '18rem'}}>
+                <Card.Body>
+                  <Card.Title>Result for Richest </Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted">{this.state.richest}</Card.Subtitle>
                 </Card.Body>
               </Card>
               </CardDeck>
